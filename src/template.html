@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nyuppsättning av ett Chalmersspex</title>
+<meta name="description" content="Besluts- och händelselogg för direktionen i en nyuppsättning av ett Chalmersspex, baserad på FGV:s och Jubileumskommitténs nyuppsättningsguide.">
+<link rel="icon" href="data:image/png;base64,__LOGO__">
+<style>
+:root{
+  --blue:#1255A3; --night:#0B1033; --night2:#161D4F; --ink:#1A1B2E; --muted:#5B6280;
+  --paper:#FFFFFF; --mist:#EEF2FA; --line:#D9DFEE; --gold:#E8A33D; --red:#C8402F; --ok:#2E8B57;
+  --serif:"Bookman Old Style","Bookman","URW Bookman","Georgia",serif;
+  --sans:"Calibri","Segoe UI","Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--mist);font-size:17px;line-height:1.5}
+a{color:var(--blue)}
+button,input,textarea,select{font:inherit}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+[hidden]{display:none!important}
+
+header.hero{color:#fff;padding:52px 0 44px;position:relative;overflow:hidden;
+  background:linear-gradient(90deg,rgba(11,16,51,.94) 0%,rgba(11,16,51,.78) 50%,rgba(11,16,51,.25) 100%),url(data:image/jpeg;base64,__BG_hero__) center 60%/cover no-repeat #0B1033}
+.banner{border-radius:14px;min-height:150px;margin-bottom:16px;display:flex;align-items:flex-end;padding:20px 22px;color:#fff;
+  background-color:#0B1033;background-size:cover;background-repeat:no-repeat;position:relative;overflow:hidden}
+.banner::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,16,51,.9) 0%,rgba(11,16,51,.45) 60%,rgba(11,16,51,.15) 100%)}
+.banner>div{position:relative}
+.banner h2{color:#fff;font-size:26px;margin:0}
+.banner p{margin:4px 0 0;color:#D5DCF3;max-width:640px}
+.b-ov{background-image:url(data:image/jpeg;base64,__BG_ov__);background-position:center 35%}
+.b-plan{background-image:url(data:image/jpeg;base64,__BG_plan__);background-position:center 30%}
+.b-steg{background-image:url(data:image/jpeg;base64,__BG_steg__);background-position:center 45%}
+.b-logg{background-image:url(data:image/jpeg;base64,__BG_logg__);background-position:center 40%}
+.b-fragor{background-image:url(data:image/jpeg;base64,__BG_fragor__);background-position:center 30%}
+#printArea{display:none}
+.brand{display:flex;gap:18px;align-items:center}
+.brand img{width:60px;height:60px;flex:none}
+.hero h1{font-family:var(--serif);font-size:clamp(26px,4vw,38px);line-height:1.15;margin:0}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p.lead{color:#C9D3F0;max-width:680px;margin:14px 0 0}
+.hero .by{color:#8F9CC8;font-size:14px;margin-top:8px}
+
+nav.tabs{position:sticky;top:0;z-index:10;background:var(--night);border-top:1px solid #1E2766}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.tabs button{background:none;border:0;color:#AEB9E0;padding:12px 14px;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;font-size:16px}
+nav.tabs button[aria-selected=true]{color:#fff;border-bottom-color:var(--gold)}
+nav.tabs .badge{display:inline-block;min-width:20px;padding:0 6px;border-radius:99px;background:var(--gold);color:var(--night);font-size:12px;font-weight:700;margin-left:6px;text-align:center}
+
+main{padding:22px 0 10px}
+.card{background:var(--paper);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(11,16,51,.06),0 6px 24px rgba(11,16,51,.05);margin-bottom:16px}
+h2{font-family:var(--serif);font-size:22px;margin:0 0 6px;color:var(--night)}
+h3{font-family:var(--serif);font-size:18px;margin:0 0 8px;color:var(--night)}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}.g4{grid-template-columns:2fr 1fr 1fr 1fr}
+label.f{display:block;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
+input[type=text],input[type=date],input[type=number],textarea,select{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+textarea{min-height:70px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
+.btn{border:1px solid var(--line);background:#fff;color:var(--night);border-radius:999px;padding:7px 14px;cursor:pointer;font-size:15px}
+.btn:hover{border-color:var(--blue);color:var(--blue)}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.primary:hover{background:#0d4685;color:#fff}
+.btn.sm{padding:3px 10px;font-size:13px}
+.linkbtn{background:none;border:0;color:var(--blue);cursor:pointer;padding:0;font-size:14px;text-decoration:underline}
+.x{background:none;border:0;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:2px 6px;border-radius:6px}
+.x:hover{background:var(--mist);color:var(--red)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:4px;padding:1px 6px;vertical-align:1px;white-space:nowrap}
+.t-krav{background:var(--gold);color:var(--night)}
+.t-Beslut{background:var(--blue);color:#fff}
+.t-Händelse{background:#DCE6F7;color:var(--night)}
+.t-Notering{background:#EEE;color:#444}
+.t-Avbockat{background:#DFF1E7;color:#1F6B42}
+.t-Fråga{background:#FBE3DF;color:#8A2C1F}
+
+/* Översikt */
+.ov{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center}
+.ring{width:104px;height:104px;position:relative}
+.ring svg{transform:rotate(-90deg)}
+.ring .pct{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:25px;color:var(--night)}
+.next{background:var(--mist);border-radius:10px;padding:10px 14px;margin-top:8px}
+.mini{list-style:none;margin:0;padding:0}
+.mini li{padding:7px 0;border-bottom:1px solid var(--mist)}
+.mini li:last-child{border-bottom:0}
+.stat{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--night);line-height:1}
+.stat.warn{color:var(--red)}
+
+/* Tidplan */
+.plan{width:100%;border-collapse:collapse}
+.plan td{padding:8px 6px;border-bottom:1px solid var(--mist);vertical-align:middle}
+.plan tr.past td{color:var(--muted)}
+.plan tr.premiere td{background:#FFF6E8}
+.plan tr.today td{padding:4px 6px;border-bottom:2px solid var(--gold);color:var(--gold);font-weight:700;font-size:14px}
+.plan .chk{width:34px}
+.plan .chk input{width:20px;height:20px;accent-color:var(--ok)}
+.plan .dt{width:170px}
+.plan .dt input{padding:6px 8px}
+.plan .rel{width:120px;font-size:14px;color:var(--muted);white-space:nowrap}
+.plan .act{width:40px;text-align:right}
+.plan .what small{display:block;color:var(--muted);font-size:13px}
+.est{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:0 7px;margin-left:6px;white-space:nowrap}
+.chg{font-size:11px;color:var(--blue);border:1px solid #BCD0EE;border-radius:999px;padding:0 7px;margin-left:6px;white-space:nowrap}
+.plan tr.done .what span.t{text-decoration:line-through;text-decoration-color:rgba(91,98,128,.5)}
+.warnline{color:var(--red);font-weight:700;margin:8px 0 0}
+
+/* Kapitel */
+details.ch{background:#fff;border-radius:14px;margin:10px 0;box-shadow:0 1px 2px rgba(11,16,51,.06)}
+details.ch>summary{list-style:none;cursor:pointer;padding:14px 18px;display:grid;grid-template-columns:42px 1fr auto;gap:14px;align-items:center}
+details.ch>summary::-webkit-details-marker{display:none}
+.letter{width:42px;height:42px;border-radius:50%;background:var(--night);color:var(--gold);display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:19px}
+details.ch.done .letter{background:var(--ok);color:#fff}
+.ch-title{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--night);line-height:1.25}
+.ch-sub{font-size:14px;color:var(--muted)}
+.ch-meta{text-align:right;font-size:14px;color:var(--muted);min-width:100px}
+.ch-meta .q{color:var(--red);font-weight:700}
+.bar{height:6px;background:var(--mist);border-radius:99px;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--blue);border-radius:99px;transition:width .3s}
+.ch-body{padding:0 18px 18px 74px}
+.intro{color:var(--muted);margin:0 0 10px}
+.grp{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:16px 0 6px}
+.item{display:grid;grid-template-columns:24px 1fr;gap:10px;padding:8px 10px;border-radius:9px;align-items:start}
+.item:hover{background:#F6F8FD}
+.item.krav{background:#FFF6E8}
+.item>input{width:20px;height:20px;margin-top:2px;accent-color:var(--ok);cursor:pointer}
+.item label{cursor:pointer}
+.item.checked label{color:var(--muted)}
+.item .meta{font-size:13px;color:var(--muted);margin-top:3px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.item .meta .ok{color:var(--ok);font-weight:700}
+.item .cmt{margin-top:6px}
+.item .cmt textarea{min-height:56px;font-size:15px}
+.info{background:var(--mist);border-radius:10px;padding:12px 16px;margin:10px 0;font-size:15.5px}
+.info h4{margin:0 0 6px;font-family:var(--serif);color:var(--night);font-size:16px}
+.info ul{margin:0;padding-left:20px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+.cmp .info{margin:0}
+.ch-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+body.only-krav .item:not(.krav),body.only-krav .info,body.only-krav .grp.tips{display:none}
+
+/* Logg och frågor */
+.entry{display:grid;grid-template-columns:110px 1fr auto;gap:12px;padding:12px 4px;border-bottom:1px solid var(--mist);align-items:start}
+.entry:last-child{border-bottom:0}
+.entry .d{font-weight:700;color:var(--night);font-size:15px}
+.entry .d small{display:block;font-weight:400;color:var(--muted)}
+.entry .txt{white-space:pre-wrap}
+.entry .by{font-size:13px;color:var(--muted);margin-top:3px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 11px;cursor:pointer;font-size:14px;color:var(--night)}
+.chip[aria-pressed=true]{background:var(--night);color:#fff;border-color:var(--night)}
+.q{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;background:#fff}
+.q.overdue{border-color:#EBB3A9;background:#FFF8F6}
+.q.closed{background:#F7F8FB}
+.q .qh{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.q .qt{font-weight:700;color:var(--night)}
+.q .qm{font-size:13px;color:var(--muted);margin-top:3px}
+.q .ans{margin-top:8px}
+.empty{color:var(--muted);font-style:italic;padding:8px 0}
+
+footer{color:var(--muted);font-size:14px;padding:24px 0 50px}
+footer p{margin:6px 0}
+
+@media (max-width:760px){
+  .g2,.g3,.g4,.cmp{grid-template-columns:1fr}
+  .ch-body{padding:0 14px 16px 14px}
+  details.ch>summary{grid-template-columns:38px 1fr;padding:12px 14px}
+  .ch-meta{grid-column:2;text-align:left}
+  .ov{grid-template-columns:1fr}
+  .entry{grid-template-columns:1fr auto}
+  .entry .d{grid-column:1/-1}
+  .plan .rel{display:none}
+  .plan .dt{width:140px}
+}
+@media print{
+  body{background:#fff;font-size:11pt}
+  nav.tabs,.toolbar,.noprint,.x,.linkbtn{display:none!important}
+  header.hero{background:#fff!important;color:#000;padding:0 0 8px}
+  .banner{display:none!important}
+  body.print-log>*:not(#printArea){display:none!important}
+  body.print-log #printArea{display:block!important}
+  .hero h1 em,.hero p.lead,.hero .by{color:#000}
+  section.tab{display:block!important}
+  .card,details.ch{box-shadow:none;border:1px solid #ccc;break-inside:avoid-page}
+}
+.pl h1{font-family:var(--serif);font-size:20pt;margin:0 0 4px;color:#0B1033}
+.pl .sub{color:#555;margin:0 0 14px}
+.pl h2{font-family:var(--serif);font-size:14pt;margin:18px 0 6px;color:#0B1033}
+.pl table{width:100%;border-collapse:collapse;font-size:10.5pt}
+.pl th{text-align:left;border-bottom:2px solid #0B1033;padding:5px 6px;font-size:9.5pt;text-transform:uppercase;letter-spacing:.04em}
+.pl td{border-bottom:1px solid #ccc;padding:6px;vertical-align:top}
+.pl tr{break-inside:avoid}
+.pl td.d{white-space:nowrap;width:85px}
+.pl td.ty{width:80px;font-weight:700}
+.pl .foot{margin-top:16px;color:#777;font-size:9pt}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brand">
+      <img src="data:image/png;base64,__LOGO__" alt="Chalmersspexet">
+      <h1>Nyuppsättning av ett <em>Chalmersspex</em></h1>
+    </div>
+    <p class="lead">Direktionens arbetsbok: läs vad som behöver göras, bocka av det ni gjort, skriv kommentarer, logga beslut och håll ordning på öppna frågor.</p>
+    <p class="by">Bygger på FGV:s och Jubileumskommitténs nyuppsättningsguide, med erfarenheter från bland annat Snorre 2022, Nostradamus 2023 och Nobel 2026. Sammanställd av Dan Engström.</p>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Avsnitt">
+  <div class="wrap" role="tablist">
+    <button role="tab" data-tab="oversikt" aria-selected="true">Översikt</button>
+    <button role="tab" data-tab="tidplan" aria-selected="false">Tidplan</button>
+    <button role="tab" data-tab="steg" aria-selected="false">Steg för steg</button>
+    <button role="tab" data-tab="logg" aria-selected="false">Beslut och händelser</button>
+    <button role="tab" data-tab="fragor" aria-selected="false">Öppna frågor<span class="badge" id="qBadge" hidden>0</span></button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ÖVERSIKT -->
+<section class="tab" id="tab-oversikt">
+  <div class="banner b-ov"><div><h2>Översikt</h2><p>Var står ni, vad är nästa krav, vad är olöst?</p></div></div>
+  <div class="card">
+    <h2>Er nyuppsättning</h2>
+    <div class="grid g3" style="margin-top:10px">
+      <div><label class="f" for="spexName">Spex</label><input type="text" id="spexName" placeholder="t.ex. Ali Baba" autocomplete="off"></div>
+      <div><label class="f" for="premiere">Premiär</label><input type="date" id="premiere"></div>
+      <div><label class="f" for="me">Du som skriver (namn eller initialer)</label><input type="text" id="me" placeholder="t.ex. Danne" autocomplete="off"></div>
+    </div>
+    <p class="small muted" style="margin:8px 0 0">Ditt namn sätts på det du bockar av, loggar och frågar, så att andra i direktionen ser vem som gjorde vad.</p>
+  </div>
+
+  <div class="card">
+    <div class="ov">
+      <div class="ring" aria-hidden="true">
+        <svg width="104" height="104" viewBox="0 0 104 104">
+          <circle cx="52" cy="52" r="44" fill="none" stroke="#EEF2FA" stroke-width="12"/>
+          <circle id="ringArc" cx="52" cy="52" r="44" fill="none" stroke="#2E8B57" stroke-width="12" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="276.5"/>
+        </svg>
+        <div class="pct" id="pct">0%</div>
+      </div>
+      <div>
+        <div id="summary"></div>
+        <div class="next" id="next"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g3">
+    <div class="card"><h3>Närmast i tidplanen</h3><ul class="mini" id="ovPlan"></ul></div>
+    <div class="card"><h3>Öppna frågor</h3><div class="row" style="gap:22px;margin-bottom:6px"><div><div class="stat" id="ovQ">0</div><div class="small muted">öppna</div></div><div><div class="stat warn" id="ovQo">0</div><div class="small muted">försenade</div></div></div><ul class="mini" id="ovQl"></ul></div>
+    <div class="card"><h3>Senast loggat</h3><ul class="mini" id="ovLog"></ul></div>
+  </div>
+
+  <div class="card noprint">
+    <h3>Spara och dela</h3>
+    <p class="small muted" style="margin:0" id="storeHint">Allt sparas i den här webbläsaren. För att dela läget i direktionen: spara som fil och lägg den där ni delar dokument; nästa person läser in den och sparar en ny när hen gjort ändringar.</p>
+    <div class="toolbar">
+      <button class="btn primary" id="btnExport" type="button">Spara som fil</button>
+      <button class="btn" id="btnImport" type="button">Läs in fil</button>
+      <button class="btn" id="btnPrint" type="button">Skriv ut allt</button>
+      <button class="btn" id="btnReset" type="button">Börja om</button>
+      <input type="file" id="fileIn" accept="application/json,.json" hidden>
+    </div>
+  </div>
+</section>
+
+<!-- TIDPLAN -->
+<section class="tab" id="tab-tidplan" hidden>
+  <div class="banner b-plan"><div><h2>Tidplan</h2><p>Principtidplanen som grundförslag; era egna datum när ni bestämt dem.</p></div></div>
+  <div class="card">
+    <p class="muted" style="margin:0 0 12px">Principtidplanen räknas ut från premiärdatum som ett grundförslag. Ändra datum fritt; ändrade datum ligger kvar även om premiären flyttas. Bocka av när ett steg är genomfört.</p>
+    <div class="grid g3 noprint" style="align-items:end">
+      <div><label class="f" for="premiere2">Premiär</label><input type="date" id="premiere2"></div>
+      <div><label class="f" for="reps">Antal rephelger, inklusive genrep</label>
+        <select id="reps"><option value="1">1</option><option value="2">2</option><option value="3">3 (som Snorre och Nobel)</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></div>
+      <div><button class="btn" id="btnResetDates" type="button">Återställ alla datum till förslaget</button></div>
+    </div>
+    <p class="warnline" id="lateWarn" hidden>Mindre än ett år till premiär: säkerställ lokalerna först av allt.</p>
+    <table class="plan" style="margin-top:12px"><tbody id="planBody"></tbody></table>
+    <p class="small muted" style="margin:10px 0 0"><span class="est">riktvärde</span> betyder att tidpunkten är ett förslag, inte erfarenhet från tidigare nyuppsättningar. Övriga förslag bygger på Snorre och Nobel.</p>
+  </div>
+  <div class="card noprint">
+    <h3>Lägg till egen händelse</h3>
+    <div class="grid g4" style="align-items:end">
+      <div><label class="f" for="cName">Vad</label><input type="text" id="cName" placeholder="t.ex. Vår-AW på Malt och Mat"></div>
+      <div><label class="f" for="cDate">Datum</label><input type="date" id="cDate"></div>
+      <div><label class="f" for="cCh">Kapitel</label><select id="cCh" class="chsel"></select></div>
+      <div><button class="btn primary" id="cAdd" type="button">Lägg till</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- STEG -->
+<section class="tab" id="tab-steg" hidden>
+  <div class="banner b-steg"><div><h2>Steg för steg</h2><p>Guidens kapitel i den ordning saker behöver göras.</p></div></div>
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <div><h2 style="margin:0">Steg för steg</h2><p class="muted small" style="margin:2px 0 0">Punkter märkta <span class="tag t-krav">Krav</span> gäller alla nyuppsättningar. Övrigt är erfarenheter och tips.</p></div>
+      <label class="row small muted noprint" style="gap:6px;cursor:pointer"><input type="checkbox" id="onlyKrav"> Visa bara krav</label>
+    </div>
+    <div class="info" style="margin-bottom:0">
+      <h4>Resan är minst lika viktig som resultatet</h4>
+      För de flesta är den största behållningen tiden ni delar: uppstartsträffen, kickoffen, rephelgerna, internkalasen på lördagskvällarna. Föreställningarna är kröningen, men det är tiden tillsammans som bär det största värdet. Låt det styra hur ni lägger upp helgerna.
+    </div>
+  </div>
+  <div id="chapters"></div>
+</section>
+
+<!-- LOGG -->
+<section class="tab" id="tab-logg" hidden>
+  <div class="banner b-logg"><div><h2>Beslut och händelser</h2><p>Direktionens logg: vad ni bestämt, vad som hänt och vem som skrev.</p></div></div>
+  <div class="card noprint">
+    <h2>Logga beslut eller händelse</h2>
+    <div class="grid g4" style="margin-top:8px">
+      <div style="grid-column:1/-1"><label class="f" for="lText">Vad beslutades eller hände?</label><textarea id="lText" placeholder="t.ex. Vi spelar två föreställningar i RunAn och har kalas i Kårrestaurangen."></textarea></div>
+      <div><label class="f" for="lType">Typ</label><select id="lType"><option>Beslut</option><option>Händelse</option><option>Notering</option></select></div>
+      <div><label class="f" for="lDate">Datum</label><input type="date" id="lDate"></div>
+      <div><label class="f" for="lCh">Kapitel</label><select id="lCh" class="chsel"></select></div>
+      <div style="align-self:end"><button class="btn primary" id="lAdd" type="button">Lägg till i loggen</button></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <h2 style="margin:0">Loggen</h2>
+      <button class="btn sm noprint" id="lCopy" type="button">Kopiera som text</button>
+    </div>
+    <div class="chips noprint" id="lFilter"></div>
+    <div id="logList"></div>
+  </div>
+  <div class="card noprint">
+    <h3>Skriv ut eller ta vidare till Google Drive</h3>
+    <p class="small muted" style="margin:0 0 8px">Beslutsloggen som ett eget dokument: för utskrift, som PDF, eller för vidare bearbetning i Google Dokument eller Google Kalkylark.</p>
+    <div class="row small" style="gap:18px">
+      <label class="row" style="gap:6px;cursor:pointer"><input type="checkbox" id="xAuto"> Ta med avbockningar</label>
+      <label class="row" style="gap:6px;cursor:pointer"><input type="checkbox" id="xOpen" checked> Ta med öppna frågor</label>
+      <label class="row" style="gap:6px;cursor:pointer"><input type="checkbox" id="xClosed"> Ta med besvarade frågor</label>
+    </div>
+    <div class="toolbar">
+      <button class="btn primary" id="xPrint" type="button">Skriv ut beslutslogg / spara som PDF</button>
+      <button class="btn" id="xDoc" type="button">Ladda ner för Google Dokument</button>
+      <button class="btn" id="xCsv" type="button">Ladda ner för Google Kalkylark</button>
+    </div>
+    <p class="small muted" style="margin:8px 0 0">I Google Drive: ladda upp filen, högerklicka och välj Öppna med, Google Dokument respektive Google Kalkylark.</p>
+  </div>
+</section>
+
+<!-- FRÅGOR -->
+<section class="tab" id="tab-fragor" hidden>
+  <div class="banner b-fragor"><div><h2>Öppna frågor</h2><p>Det ni inte vet än, vem som tar reda på det och till när.</p></div></div>
+  <div class="card noprint">
+    <h2>Registrera en öppen fråga</h2>
+    <div class="grid g4" style="margin-top:8px">
+      <div style="grid-column:1/-1"><label class="f" for="qText">Fråga</label><textarea id="qText" placeholder="t.ex. Kan vi boka RunAn till kårpris via årets spex?"></textarea></div>
+      <div><label class="f" for="qOwner">Ansvarig</label><input type="text" id="qOwner" placeholder="Vem tar reda på det?"></div>
+      <div><label class="f" for="qDue">Svar senast</label><input type="date" id="qDue"></div>
+      <div><label class="f" for="qCh">Kapitel</label><select id="qCh" class="chsel"></select></div>
+      <div style="align-self:end"><button class="btn primary" id="qAdd" type="button">Lägg till fråga</button></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Öppna</h2>
+    <div id="qOpen"></div>
+  </div>
+  <div class="card">
+    <details id="qClosedWrap"><summary style="cursor:pointer"><h2 style="display:inline">Besvarade</h2> <span class="muted" id="qClosedN"></span></summary><div id="qClosed"></div></details>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p>Frågor om nyuppsättningar: kontakta Jubileumskommittén via FGV, <a href="https://fgv.nu/">fgv.nu</a>. Aktuellt sittande spex: <a href="https://www.chalmersspexet.se">chalmersspexet.se</a>.</p>
+  <p>Guiden är ett stöd, inte ett regelverk. Villkor för lokaler, kårpris och fakturavägar ändras; stäm alltid av aktuellt läge med FGV/JK.</p>
+  <p>Sammanställd av Dan Engström · nyspex.mickla.se</p>
+</footer>
+<div id="printArea" class="pl"></div>
+
+<script>
+(function(){
+"use strict";
+
+__CH__
+__INFO__
+
+var REPS = {1:[-7],2:[-21,-7],3:[-42,-21,-7],4:[-56,-35,-21,-7],5:[-70,-49,-35,-21,-7],6:[-84,-63,-49,-35,-21,-7]};
+function baseMilestones(n){
+  var m = [
+    {k:"kontakt", d:-456, t:"Kontakta FGV och JK om nyuppsättning och tidpunkt", ch:"A", est:true},
+    {k:"lokaler", d:-365, t:"Boka föreställningslokal och kalaslokal", ch:"B"},
+    {k:"budget", d:-335, t:"Budget klar, innan några kostnader dras", ch:"C", est:true},
+    {k:"dirmote", d:-240, t:"Andra direktionsmötet: organisation, ekonomi, inventering", ch:"D", est:true},
+    {k:"digital", d:-137, t:"Digital träff med hela gänget", ch:"F"},
+    {k:"uppstart", d:-106, t:"Uppstartshelg: titta i förråden och ät ihop", ch:"E"}
+  ];
+  var r = REPS[n] || REPS[3];
+  r.forEach(function(off,i){
+    var last = i === r.length-1;
+    m.push({k:"rep"+(i+1)+"of"+n, d:off, t: last ? "Genrepshelg, med sminkcoachning" : "Rephelg "+(i+1), ch:"F"});
+  });
+  m.push({k:"premiar", d:0, t:"Premiär och kalas", ch:"H", premiere:true});
+  m.push({k:"redovisning", d:60, t:"Ekonomisk redovisning till JK, adresslista till FGV", ch:"J", est:true});
+  return m;
+}
+
+/* ---------- Tillstånd ---------- */
+var KEY = "nyspex.v2", OLDKEY = "nyspex.v1";
+function blank(){ return {v:2, name:"", premiere:"", me:"", reps:3, dates:{}, mdone:{}, custom:[], checked:{}, comments:{}, notes:{}, log:[], qs:[], open:{}}; }
+var state = blank(), canStore = true;
+function normalize(o){
+  var s = Object.assign(blank(), o || {});
+  Object.keys(s.checked).forEach(function(k){ if(s.checked[k] === true) s.checked[k] = {on:true, date:"", by:""}; });
+  s.reps = +s.reps || 3;
+  return s;
+}
+function load(){
+  try{
+    var raw = localStorage.getItem(KEY) || localStorage.getItem(OLDKEY);
+    if(raw) state = normalize(JSON.parse(raw));
+  }catch(e){ canStore = false; }
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){ canStore = false; } }
+
+/* ---------- Hjälpare ---------- */
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+var MON = ["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
+function pd(s){ if(!s) return null; var p = s.split("-"); return new Date(+p[0], +p[1]-1, +p[2]); }
+function iso(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function fmt(s){ var d = typeof s === "string" ? pd(s) : s; return d ? d.getDate()+" "+MON[d.getMonth()]+" "+d.getFullYear() : ""; }
+function addDays(d,n){ var x = new Date(d.getTime()); x.setDate(x.getDate()+n); return x; }
+function today(){ var t = new Date(); return new Date(t.getFullYear(), t.getMonth(), t.getDate()); }
+function todayIso(){ return iso(today()); }
+function rel(s){
+  var d = pd(s); if(!d) return "";
+  var n = Math.round((d - today())/86400000);
+  if(n===0) return "i dag";
+  var a = Math.abs(n), w;
+  if(a<14) w = a+(a===1?" dag":" dagar"); else if(a<70) w = Math.round(a/7)+" veckor"; else w = Math.round(a/30.4)+" månader";
+  return n>0 ? "om "+w : w+" sedan";
+}
+function chName(id){ if(!id) return "Allmänt"; var c = CH.filter(function(x){ return x.id===id; })[0]; return c ? id+". "+c.title : id; }
+function itemText(id){ var p = id.split("-"); var c = CH.filter(function(x){ return x.id===p[0]; })[0]; return c && c.items[+p[1]] ? c.items[+p[1]].t : id; }
+function who(){ return state.me || ""; }
+function addLog(type, text, ch, date, auto){
+  state.log.push({id:uid(), date:date||todayIso(), type:type, ch:ch||"", text:text, by:who(), ts:Date.now(), auto:!!auto});
+}
+
+/* ---------- Tidplan ---------- */
+function milestones(){
+  var p = pd(state.premiere), list = [];
+  baseMilestones(state.reps).forEach(function(m){
+    var sug = p ? iso(addDays(p, m.d)) : "";
+    var val = state.dates[m.k] || sug;
+    list.push({k:m.k, t:m.t, ch:m.ch, est:m.est, premiere:m.premiere, sug:sug, date:val, changed: !!state.dates[m.k] && state.dates[m.k] !== sug, custom:false});
+  });
+  state.custom.forEach(function(c){ list.push({k:c.id, t:c.t, ch:c.ch, date:c.date, sug:"", custom:true}); });
+  list.sort(function(a,b){ if(!a.date) return 1; if(!b.date) return -1; return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+  return list;
+}
+function renderPlan(){
+  document.getElementById("premiere2").value = state.premiere || "";
+  document.getElementById("reps").value = String(state.reps);
+  var body = document.getElementById("planBody"), html = "", t = todayIso(), marked = false;
+  var list = milestones();
+  list.forEach(function(m){
+    if(!marked && m.date && m.date >= t){ html += '<tr class="today"><td colspan="5">I dag, '+fmt(t)+'</td></tr>'; marked = true; }
+    var done = !!state.mdone[m.k];
+    var cls = (m.date && m.date < t ? "past " : "") + (m.premiere ? "premiere " : "") + (done ? "done" : "");
+    html += '<tr class="'+cls+'" data-k="'+esc(m.k)+'">'+
+      '<td class="chk"><input type="checkbox" data-mdone="'+esc(m.k)+'"'+(done?" checked":"")+' aria-label="Genomfört"></td>'+
+      '<td class="dt"><input type="date" data-mdate="'+esc(m.k)+'" value="'+esc(m.date)+'"'+(m.custom?' data-custom="1"':'')+' aria-label="Datum"></td>'+
+      '<td class="what"><span class="t">'+esc(m.t)+'</span>'+(m.est?'<span class="est">riktvärde</span>':'')+(m.changed?'<span class="chg">ändrat</span>':'')+
+        '<small>'+esc(chName(m.ch))+(m.changed&&m.sug?' · förslag '+fmt(m.sug)+' <button class="linkbtn" data-mreset="'+esc(m.k)+'">återställ</button>':'')+'</small></td>'+
+      '<td class="rel">'+(m.date?rel(m.date):"")+'</td>'+
+      '<td class="act">'+(m.custom?'<button class="x" data-cdel="'+esc(m.k)+'" title="Ta bort">×</button>':'')+'</td></tr>';
+  });
+  if(!list.some(function(m){ return m.date; })) html = '<tr><td colspan="5" class="empty">Ange premiärdatum så fylls förslaget i.</td></tr>';
+  else if(!marked) html += '<tr class="today"><td colspan="5">I dag, '+fmt(t)+'</td></tr>';
+  body.innerHTML = html;
+  var p = pd(state.premiere);
+  document.getElementById("lateWarn").hidden = !(p && addDays(p,-365) < today() && p > today());
+}
+
+/* ---------- Kapitel ---------- */
+function openQsFor(ch){ return state.qs.filter(function(q){ return q.status !== "closed" && q.ch === ch; }).length; }
+function renderChapters(){
+  var host = document.getElementById("chapters"), html = "";
+  CH.forEach(function(c){
+    var body = c.intro ? '<p class="intro">'+esc(c.intro)+'</p>' : "";
+    var krav = [], tips = [];
+    c.items.forEach(function(it,i){
+      if(it.info){ tips.push(INFO[it.info]); return; }
+      var id = c.id+"-"+i, ck = state.checked[id], on = !!(ck && ck.on), cm = state.comments[id] || "";
+      var meta = '<div class="meta">'+(on?'<span class="ok">Klart'+(ck.date?" "+fmt(ck.date):"")+(ck.by?" · "+esc(ck.by):"")+'</span>':'')+
+        '<button class="linkbtn" data-cmt="'+id+'">'+(cm?"Kommentar":"Kommentera")+'</button>'+
+        '<button class="linkbtn" data-askq="'+id+'">Öppen fråga</button></div>';
+      var row = '<div class="item'+(it.k?' krav':'')+(on?' checked':'')+'" data-id="'+id+'"><input type="checkbox" id="cb-'+id+'"'+(on?' checked':'')+'>'+
+        '<div><label for="cb-'+id+'">'+(it.k?'<span class="tag t-krav">Krav</span> ':'')+esc(it.t)+'</label>'+meta+
+        '<div class="cmt"'+(cm?'':' hidden')+'><textarea data-cmtbox="'+id+'" placeholder="Hur gjorde ni, vad gäller för er?">'+esc(cm)+'</textarea></div></div></div>';
+      (it.k?krav:tips).push(row);
+    });
+    if(krav.length) body += '<div class="grp">Krav</div>'+krav.join("");
+    if(tips.length) body += '<div class="grp tips">Erfarenheter och tips</div>'+tips.join("");
+    body += '<div class="grp">Anteckningar för kapitlet</div><textarea data-note="'+c.id+'" placeholder="Det som varierar från gång till gång: vad gäller för er?">'+esc(state.notes[c.id]||"")+'</textarea>';
+    body += '<div class="ch-actions noprint"><button class="btn sm" data-logch="'+c.id+'">Logga beslut i kapitlet</button><button class="btn sm" data-qch="'+c.id+'">Ny öppen fråga</button></div>';
+    html += '<details class="ch" id="ch-'+c.id+'"'+(state.open[c.id]?' open':'')+'><summary><span class="letter">'+c.id+'</span><span><span class="ch-title">'+esc(c.title)+'</span><br><span class="ch-sub">'+esc(c.sub)+'</span></span><span class="ch-meta"><span class="cnt"></span> <span class="q"></span><span class="bar"><i></i></span></span></summary><div class="ch-body">'+body+'</div></details>';
+  });
+  host.innerHTML = html;
+}
+function counts(c){
+  var tot=0, done=0, kTot=0, kDone=0;
+  c.items.forEach(function(it,i){ if(it.info) return; tot++; var ck = state.checked[c.id+"-"+i], on = !!(ck&&ck.on); if(on) done++; if(it.k){ kTot++; if(on) kDone++; } });
+  return {tot:tot, done:done, kTot:kTot, kDone:kDone};
+}
+function updateChapterMeta(){
+  CH.forEach(function(c){
+    var n = counts(c), el = document.getElementById("ch-"+c.id); if(!el) return;
+    el.querySelector(".cnt").textContent = n.done+" / "+n.tot;
+    var oq = openQsFor(c.id); el.querySelector(".q").textContent = oq ? oq+" fråg"+(oq===1?"a":"or") : "";
+    el.querySelector(".bar i").style.width = (n.tot?Math.round(100*n.done/n.tot):0)+"%";
+    el.classList.toggle("done", n.tot>0 && n.done===n.tot);
+  });
+}
+
+/* ---------- Logg ---------- */
+var lFilter = "Alla";
+function renderLog(){
+  var types = ["Alla","Beslut","Händelse","Notering","Avbockat"];
+  document.getElementById("lFilter").innerHTML = types.map(function(t){ return '<button class="chip" data-lf="'+t+'" aria-pressed="'+(t===lFilter)+'">'+t+'</button>'; }).join("");
+  var items = state.log.slice().sort(function(a,b){ return a.date === b.date ? b.ts - a.ts : (a.date < b.date ? 1 : -1); });
+  if(lFilter !== "Alla") items = items.filter(function(e){ return e.type === lFilter; });
+  document.getElementById("logList").innerHTML = items.length ? items.map(function(e){
+    return '<div class="entry"><div class="d">'+fmt(e.date)+'<small>'+esc(chName(e.ch))+'</small></div><div><span class="tag t-'+esc(e.type)+'">'+esc(e.type)+'</span><div class="txt">'+esc(e.text)+'</div>'+(e.by?'<div class="by">'+esc(e.by)+'</div>':'')+'</div><button class="x noprint" data-ldel="'+e.id+'" title="Ta bort">×</button></div>';
+  }).join("") : '<div class="empty">Inget loggat ännu.</div>';
+}
+function logAsText(){
+  var items = state.log.slice().sort(function(a,b){ return a.date === b.date ? a.ts - b.ts : (a.date < b.date ? -1 : 1); });
+  var head = "Beslut- och händelselogg"+(state.name?": "+state.name:"")+"\n\n";
+  return head + items.map(function(e){ return e.date+"  "+e.type.toUpperCase()+"  ("+chName(e.ch)+")"+(e.by?"  ["+e.by+"]":"")+"\n"+e.text; }).join("\n\n");
+}
+
+/* ---------- Export av beslutslogg ---------- */
+function exportData(){
+  var o = {auto:document.getElementById("xAuto").checked, open:document.getElementById("xOpen").checked, closed:document.getElementById("xClosed").checked};
+  var log = state.log.filter(function(e){ return o.auto || !e.auto; }).sort(function(a,b){ return a.date === b.date ? a.ts - b.ts : (a.date < b.date ? -1 : 1); });
+  var openQ = o.open ? state.qs.filter(function(q){ return q.status !== "closed"; }) : [];
+  var closedQ = o.closed ? state.qs.filter(function(q){ return q.status === "closed"; }) : [];
+  return {log:log, openQ:openQ, closedQ:closedQ};
+}
+function logDocHtml(){
+  var x = exportData(), t = todayIso();
+  var h = '<h1>Beslutslogg'+(state.name?': '+esc(state.name):'')+'</h1><p class="sub">Nyuppsättning av Chalmersspexet'+(state.name?' '+esc(state.name):'')+(state.premiere?', premiär '+fmt(state.premiere):'')+'. Utskriven '+fmt(t)+(state.me?' av '+esc(state.me):'')+'.</p>';
+  h += '<h2>Beslut och händelser</h2>';
+  h += x.log.length ? '<table><thead><tr><th>Datum</th><th>Typ</th><th>Kapitel</th><th>Beslut eller händelse</th><th>Av</th></tr></thead><tbody>'+x.log.map(function(e){
+    return '<tr><td class="d">'+esc(e.date)+'</td><td class="ty">'+esc(e.type)+'</td><td>'+esc(chName(e.ch))+'</td><td>'+esc(e.text).replace(/\n/g,'<br>')+'</td><td>'+esc(e.by)+'</td></tr>'; }).join('')+'</tbody></table>' : '<p>Inget loggat.</p>';
+  if(x.openQ.length) h += '<h2>Öppna frågor</h2><table><thead><tr><th>Ställd</th><th>Fråga</th><th>Kapitel</th><th>Ansvarig</th><th>Senast</th></tr></thead><tbody>'+x.openQ.map(function(q){
+    return '<tr><td class="d">'+esc(q.created)+'</td><td>'+esc(q.q)+'</td><td>'+esc(chName(q.ch))+'</td><td>'+esc(q.owner)+'</td><td class="d">'+esc(q.due)+'</td></tr>'; }).join('')+'</tbody></table>';
+  if(x.closedQ.length) h += '<h2>Besvarade frågor</h2><table><thead><tr><th>Besvarad</th><th>Fråga</th><th>Svar</th><th>Kapitel</th></tr></thead><tbody>'+x.closedQ.map(function(q){
+    return '<tr><td class="d">'+esc(q.closed)+'</td><td>'+esc(q.q)+'</td><td>'+esc(q.answer)+'</td><td>'+esc(chName(q.ch))+'</td></tr>'; }).join('')+'</tbody></table>';
+  h += '<p class="foot">Från nyspex.mickla.se, direktionens arbetsbok för nyuppsättningar av Chalmersspex.</p>';
+  return h;
+}
+function download(name, mime, content){
+  var blob = new Blob(["\ufeff"+content], {type:mime}), a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+function slug(){ return (state.name||"nyuppsattning").toLowerCase().replace(/[åä]/g,"a").replace(/ö/g,"o").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); }
+function csvCell(v){ v = String(v == null ? "" : v); return /[",\n;]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; }
+function logCsv(){
+  var x = exportData(), rows = [["Datum","Typ","Kapitel","Beskrivning","Av","Ansvarig","Senast","Status"]];
+  x.log.forEach(function(e){ rows.push([e.date, e.type, chName(e.ch), e.text, e.by, "", "", ""]); });
+  x.openQ.forEach(function(q){ rows.push([q.created, "Öppen fråga", chName(q.ch), q.q, q.by, q.owner, q.due, "Öppen"]); });
+  x.closedQ.forEach(function(q){ rows.push([q.closed, "Besvarad fråga", chName(q.ch), q.q+"\nSvar: "+q.answer, q.closedBy||q.by, q.owner, q.due, "Besvarad"]); });
+  return rows.map(function(r){ return r.map(csvCell).join(","); }).join("\r\n");
+}
+
+/* ---------- Frågor ---------- */
+function renderQs(){
+  var t = todayIso();
+  var open = state.qs.filter(function(q){ return q.status !== "closed"; }).sort(function(a,b){ return (a.due||"9999") < (b.due||"9999") ? -1 : 1; });
+  var closed = state.qs.filter(function(q){ return q.status === "closed"; }).sort(function(a,b){ return b.closed < a.closed ? -1 : 1; });
+  function card(q){
+    var od = q.status !== "closed" && q.due && q.due < t;
+    var meta = [chName(q.ch)];
+    if(q.owner) meta.push("Ansvarig: "+q.owner);
+    if(q.due) meta.push("Senast "+fmt(q.due)+(q.status!=="closed"?" ("+rel(q.due)+")":""));
+    if(q.by) meta.push("Ställd av "+q.by+" "+fmt(q.created));
+    var h = '<div class="q'+(od?" overdue":"")+(q.status==="closed"?" closed":"")+'"><div class="qh"><div><span class="tag t-Fråga">'+(od?"Försenad":q.status==="closed"?"Besvarad":"Öppen")+'</span> <span class="qt">'+esc(q.q)+'</span><div class="qm">'+esc(meta.join(" · "))+'</div></div><button class="x noprint" data-qdel="'+q.id+'" title="Ta bort">×</button></div>';
+    if(q.status === "closed"){
+      h += '<div class="ans"><b>Svar '+fmt(q.closed)+':</b> '+esc(q.answer)+'</div>';
+    } else {
+      h += '<div class="ans noprint"><textarea data-qans="'+q.id+'" placeholder="Svar eller beslut">'+esc(q.draft||"")+'</textarea><div class="row" style="margin-top:6px"><button class="btn sm primary" data-qclose="'+q.id+'">Besvara och logga som beslut</button><button class="btn sm" data-qcloseonly="'+q.id+'">Stäng utan beslut</button></div></div>';
+    }
+    return h+'</div>';
+  }
+  document.getElementById("qOpen").innerHTML = open.length ? open.map(card).join("") : '<div class="empty">Inga öppna frågor.</div>';
+  document.getElementById("qClosed").innerHTML = closed.length ? closed.map(card).join("") : '<div class="empty">Inga besvarade frågor ännu.</div>';
+  document.getElementById("qClosedN").textContent = closed.length ? "("+closed.length+")" : "";
+  var b = document.getElementById("qBadge"); b.hidden = !open.length; b.textContent = open.length;
+}
+
+/* ---------- Översikt ---------- */
+function renderOverview(){
+  var T=0, D=0, nextReq=null;
+  CH.forEach(function(c){ var n = counts(c); T+=n.tot; D+=n.done;
+    if(!nextReq) c.items.some(function(it,i){ var ck = state.checked[c.id+"-"+i]; if(it.k && !(ck&&ck.on)){ nextReq = {c:c, t:it.t}; return true; } return false; }); });
+  var p = T?Math.round(100*D/T):0;
+  document.getElementById("pct").textContent = p+"%";
+  document.getElementById("ringArc").setAttribute("stroke-dashoffset", String(276.5-276.5*p/100));
+  var kT=0,kD=0; CH.forEach(function(c){ var n=counts(c); kT+=n.kTot; kD+=n.kDone; });
+  document.getElementById("summary").innerHTML = "<b>"+D+"</b> av <b>"+T+"</b> punkter avbockade"+(state.name?" för "+esc(state.name):"")+", varav <b>"+kD+"</b> av <b>"+kT+"</b> krav.";
+  document.getElementById("next").innerHTML = nextReq ? '<b>Nästa krav:</b> <a href="#" data-goto="'+nextReq.c.id+'">'+nextReq.c.id+'. '+esc(nextReq.c.title)+'</a>: '+esc(nextReq.t) : "<b>Alla krav är avbockade.</b> Tack för att ni håller spexet vid liv!";
+  var t = todayIso();
+  var up = milestones().filter(function(m){ return m.date && m.date >= t && !state.mdone[m.k]; }).slice(0,4);
+  document.getElementById("ovPlan").innerHTML = up.length ? up.map(function(m){ return '<li><b>'+fmt(m.date)+'</b> <span class="small muted">'+rel(m.date)+'</span><br>'+esc(m.t)+'</li>'; }).join("") : '<li class="empty">'+(state.premiere?"Inget kommande.":"Ange premiärdatum.")+'</li>';
+  var open = state.qs.filter(function(q){ return q.status !== "closed"; });
+  var od = open.filter(function(q){ return q.due && q.due < t; });
+  document.getElementById("ovQ").textContent = open.length;
+  document.getElementById("ovQo").textContent = od.length;
+  document.getElementById("ovQl").innerHTML = open.slice(0,3).map(function(q){ return '<li>'+esc(q.q)+(q.owner?' <span class="small muted">('+esc(q.owner)+')</span>':'')+'</li>'; }).join("");
+  var last = state.log.slice().sort(function(a,b){ return b.ts - a.ts; }).filter(function(e){ return !e.auto; }).slice(0,4);
+  document.getElementById("ovLog").innerHTML = last.length ? last.map(function(e){ return '<li><span class="tag t-'+esc(e.type)+'">'+esc(e.type)+'</span> <span class="small muted">'+fmt(e.date)+'</span><br>'+esc(e.text.length>110?e.text.slice(0,110)+"…":e.text)+'</li>'; }).join("") : '<li class="empty">Inga beslut loggade ännu.</li>';
+}
+
+/* ---------- Flikar ---------- */
+function showTab(name){
+  document.querySelectorAll("nav.tabs button").forEach(function(b){ b.setAttribute("aria-selected", String(b.getAttribute("data-tab")===name)); });
+  document.querySelectorAll("section.tab").forEach(function(s){ s.hidden = s.id !== "tab-"+name; });
+  try{ history.replaceState(null, "", "#"+name); }catch(e){}
+}
+
+function refresh(){ renderOverview(); renderPlan(); updateChapterMeta(); renderLog(); renderQs(); setTitle(); }
+function setTitle(){ document.title = state.name ? "Nyuppsättning: "+state.name : "Nyuppsättning av ett Chalmersspex"; }
+
+function fillChSelects(){
+  var opts = '<option value="">Allmänt</option>' + CH.map(function(c){ return '<option value="'+c.id+'">'+c.id+'. '+esc(c.title)+'</option>'; }).join("");
+  document.querySelectorAll("select.chsel").forEach(function(s){ s.innerHTML = opts; });
+}
+
+/* ---------- Händelser ---------- */
+function bind(){
+  document.querySelectorAll("nav.tabs button").forEach(function(b){ b.addEventListener("click", function(){ showTab(b.getAttribute("data-tab")); window.scrollTo({top: document.querySelector("nav.tabs").offsetTop, behavior:"smooth"}); }); });
+
+  var nameEl = document.getElementById("spexName"), pEl = document.getElementById("premiere"), p2 = document.getElementById("premiere2"), meEl = document.getElementById("me");
+  nameEl.addEventListener("input", function(){ state.name = nameEl.value.trim(); save(); renderOverview(); setTitle(); });
+  meEl.addEventListener("input", function(){ state.me = meEl.value.trim(); save(); });
+  function setPrem(v){ state.premiere = v; pEl.value = v; p2.value = v; save(); refresh(); }
+  pEl.addEventListener("change", function(){ setPrem(pEl.value); });
+  p2.addEventListener("change", function(){ setPrem(p2.value); });
+  document.getElementById("reps").addEventListener("change", function(e){
+    var old = state.reps; state.reps = +e.target.value;
+    Object.keys(state.dates).forEach(function(k){ if(/^rep\d+of/.test(k)) delete state.dates[k]; });
+    addLog("Händelse", "Antal rephelger ändrat från "+old+" till "+state.reps+".", "F", null, true);
+    save(); refresh();
+  });
+  document.getElementById("btnResetDates").addEventListener("click", function(){
+    if(!window.confirm("Återställa alla ändrade datum till principtidplanen? Egna händelser ligger kvar.")) return;
+    state.dates = {}; save(); refresh();
+  });
+
+  var plan = document.getElementById("planBody");
+  plan.addEventListener("change", function(e){
+    var t = e.target;
+    if(t.hasAttribute("data-mdate")){
+      var k = t.getAttribute("data-mdate");
+      if(t.hasAttribute("data-custom")){ state.custom.forEach(function(c){ if(c.id===k) c.date = t.value; }); }
+      else { state.dates[k] = t.value; }
+      save(); refresh();
+    } else if(t.hasAttribute("data-mdone")){
+      var k2 = t.getAttribute("data-mdone");
+      if(t.checked){ state.mdone[k2] = {date:todayIso(), by:who()}; var m = milestones().filter(function(x){ return x.k===k2; })[0]; if(m) addLog("Avbockat", "Genomfört: "+m.t, m.ch, null, true); }
+      else delete state.mdone[k2];
+      save(); refresh();
+    }
+  });
+  plan.addEventListener("click", function(e){
+    var r = e.target.closest("[data-mreset]"); if(r){ delete state.dates[r.getAttribute("data-mreset")]; save(); refresh(); return; }
+    var d = e.target.closest("[data-cdel]"); if(d && window.confirm("Ta bort händelsen?")){ var id = d.getAttribute("data-cdel"); state.custom = state.custom.filter(function(c){ return c.id!==id; }); delete state.mdone[id]; save(); refresh(); }
+  });
+  document.getElementById("cAdd").addEventListener("click", function(){
+    var n = document.getElementById("cName"), d = document.getElementById("cDate"), c = document.getElementById("cCh");
+    if(!n.value.trim() || !d.value){ window.alert("Fyll i både vad och datum."); return; }
+    state.custom.push({id:"c"+uid(), t:n.value.trim(), date:d.value, ch:c.value});
+    n.value = ""; d.value = ""; save(); refresh();
+  });
+
+  var host = document.getElementById("chapters");
+  host.addEventListener("change", function(e){
+    var t = e.target;
+    if(t.type === "checkbox" && t.closest(".item")){
+      var row = t.closest(".item"), id = row.getAttribute("data-id");
+      if(t.checked){ state.checked[id] = {on:true, date:todayIso(), by:who()}; addLog("Avbockat", itemText(id), id.split("-")[0], null, true); }
+      else { delete state.checked[id]; }
+      save(); renderChapters(); refresh();
+    }
+  });
+  host.addEventListener("input", function(e){
+    var t = e.target;
+    if(t.hasAttribute("data-note")){ state.notes[t.getAttribute("data-note")] = t.value; save(); }
+    if(t.hasAttribute("data-cmtbox")){ var id = t.getAttribute("data-cmtbox"); if(t.value) state.comments[id] = t.value; else delete state.comments[id]; save(); }
+  });
+  host.addEventListener("toggle", function(e){ var d = e.target; if(d.tagName === "DETAILS"){ state.open[d.id.slice(3)] = d.open; save(); } }, true);
+  host.addEventListener("click", function(e){
+    var c = e.target.closest("[data-cmt]");
+    if(c){ var box = c.closest(".item").querySelector(".cmt"); box.hidden = !box.hidden; if(!box.hidden) box.querySelector("textarea").focus(); return; }
+    var q = e.target.closest("[data-askq]");
+    if(q){ var id = q.getAttribute("data-askq"); prefillQ(id.split("-")[0], "Angående: "+itemText(id)+"\n"); return; }
+    var l = e.target.closest("[data-logch]"); if(l){ document.getElementById("lCh").value = l.getAttribute("data-logch"); showTab("logg"); document.getElementById("lText").focus(); return; }
+    var qc = e.target.closest("[data-qch]"); if(qc){ prefillQ(qc.getAttribute("data-qch"), ""); }
+  });
+  function prefillQ(ch, txt){ document.getElementById("qCh").value = ch; var qt = document.getElementById("qText"); qt.value = txt; showTab("fragor"); qt.focus(); qt.setSelectionRange(qt.value.length, qt.value.length); }
+
+  document.getElementById("onlyKrav").addEventListener("change", function(e){ document.body.classList.toggle("only-krav", e.target.checked); });
+
+  document.getElementById("lDate").value = todayIso();
+  document.getElementById("lAdd").addEventListener("click", function(){
+    var tx = document.getElementById("lText");
+    if(!tx.value.trim()){ tx.focus(); return; }
+    addLog(document.getElementById("lType").value, tx.value.trim(), document.getElementById("lCh").value, document.getElementById("lDate").value || todayIso(), false);
+    tx.value = ""; save(); refresh();
+  });
+  document.getElementById("lFilter").addEventListener("click", function(e){ var b = e.target.closest("[data-lf]"); if(b){ lFilter = b.getAttribute("data-lf"); renderLog(); } });
+  document.getElementById("logList").addEventListener("click", function(e){ var b = e.target.closest("[data-ldel]"); if(b && window.confirm("Ta bort posten ur loggen?")){ var id = b.getAttribute("data-ldel"); state.log = state.log.filter(function(x){ return x.id!==id; }); save(); refresh(); } });
+  document.getElementById("lCopy").addEventListener("click", function(){
+    var txt = logAsText(), btn = this;
+    function done(){ btn.textContent = "Kopierat!"; setTimeout(function(){ btn.textContent = "Kopiera som text"; }, 1600); }
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done, function(){ fallbackCopy(txt); done(); }); }
+    else { fallbackCopy(txt); done(); }
+  });
+  function fallbackCopy(t){ var a = document.createElement("textarea"); a.value = t; document.body.appendChild(a); a.select(); try{ document.execCommand("copy"); }catch(e){} a.remove(); }
+
+  document.getElementById("xPrint").addEventListener("click", function(){
+    document.getElementById("printArea").innerHTML = logDocHtml();
+    document.body.classList.add("print-log");
+    var off = function(){ document.body.classList.remove("print-log"); window.removeEventListener("afterprint", off); };
+    window.addEventListener("afterprint", off);
+    window.print();
+    setTimeout(off, 1500);
+  });
+  document.getElementById("xDoc").addEventListener("click", function(){
+    var css = "body{font-family:Calibri,Arial,sans-serif;color:#1A1B2E}h1,h2{font-family:'Bookman Old Style',Georgia,serif;color:#0B1033}table{border-collapse:collapse;width:100%}th,td{border:1px solid #bbb;padding:5px;text-align:left;vertical-align:top}th{background:#EEF2FA}";
+    download("beslutslogg-"+slug()+"-"+todayIso()+".html", "text/html;charset=utf-8", '<!DOCTYPE html><html lang="sv"><head><meta charset="utf-8"><title>Beslutslogg</title><style>'+css+'</style></head><body>'+logDocHtml()+'</body></html>');
+  });
+  document.getElementById("xCsv").addEventListener("click", function(){
+    download("beslutslogg-"+slug()+"-"+todayIso()+".csv", "text/csv;charset=utf-8", logCsv());
+  });
+
+  document.getElementById("qAdd").addEventListener("click", function(){
+    var qt = document.getElementById("qText");
+    if(!qt.value.trim()){ qt.focus(); return; }
+    var q = {id:uid(), q:qt.value.trim(), owner:document.getElementById("qOwner").value.trim(), due:document.getElementById("qDue").value, ch:document.getElementById("qCh").value, status:"open", created:todayIso(), by:who()};
+    state.qs.push(q);
+    addLog("Händelse", "Ny öppen fråga: "+q.q+(q.owner?" (ansvarig "+q.owner+")":""), q.ch, null, true);
+    qt.value = ""; document.getElementById("qOwner").value = ""; document.getElementById("qDue").value = "";
+    save(); refresh();
+  });
+  var qWrap = document.getElementById("tab-fragor");
+  qWrap.addEventListener("input", function(e){ var t = e.target; if(t.hasAttribute("data-qans")){ var id = t.getAttribute("data-qans"); state.qs.forEach(function(q){ if(q.id===id) q.draft = t.value; }); save(); } });
+  qWrap.addEventListener("click", function(e){
+    var c = e.target.closest("[data-qclose]"), co = e.target.closest("[data-qcloseonly]"), d = e.target.closest("[data-qdel]");
+    if(c || co){
+      var id = (c||co).getAttribute(c ? "data-qclose" : "data-qcloseonly");
+      var q = state.qs.filter(function(x){ return x.id===id; })[0]; if(!q) return;
+      var ans = (q.draft||"").trim();
+      if(c && !ans){ window.alert("Skriv svaret eller beslutet först."); return; }
+      q.status = "closed"; q.closed = todayIso(); q.answer = ans || "Stängd utan beslut."; q.closedBy = who(); delete q.draft;
+      if(c) addLog("Beslut", ans+"\n(Fråga: "+q.q+")", q.ch, null, false);
+      else addLog("Händelse", "Fråga stängd utan beslut: "+q.q, q.ch, null, true);
+      save(); refresh();
+    }
+    if(d && window.confirm("Ta bort frågan helt? Använd hellre Stäng om den är löst.")){ var id2 = d.getAttribute("data-qdel"); state.qs = state.qs.filter(function(x){ return x.id!==id2; }); save(); refresh(); }
+  });
+
+  document.addEventListener("click", function(e){
+    var a = e.target.closest("[data-goto]"); if(!a) return;
+    e.preventDefault(); showTab("steg");
+    var d = document.getElementById("ch-"+a.getAttribute("data-goto"));
+    if(d){ d.open = true; d.scrollIntoView({behavior:"smooth", block:"start"}); }
+  });
+
+  document.getElementById("btnPrint").addEventListener("click", function(){ document.querySelectorAll("details").forEach(function(d){ d.open = true; }); window.print(); });
+  document.getElementById("btnReset").addEventListener("click", function(){
+    if(!window.confirm("Rensa allt i den här webbläsaren: bockar, kommentarer, logg, frågor och datum? Spara som fil först om du vill ha kvar något.")) return;
+    state = blank(); save(); init();
+  });
+  document.getElementById("btnExport").addEventListener("click", function(){
+    var data = JSON.stringify({app:"nyspex", version:2, saved:new Date().toISOString(), savedBy:who(), state:state}, null, 2);
+    var blob = new Blob([data], {type:"application/json"}), a = document.createElement("a");
+    var slug = (state.name||"nyuppsattning").toLowerCase().replace(/[åä]/g,"a").replace(/ö/g,"o").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+    a.href = URL.createObjectURL(blob); a.download = "nyspex-"+slug+"-"+todayIso()+".json";
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  });
+  var fileIn = document.getElementById("fileIn");
+  document.getElementById("btnImport").addEventListener("click", function(){ fileIn.click(); });
+  fileIn.addEventListener("change", function(){
+    var f = fileIn.files[0]; if(!f) return;
+    var r = new FileReader();
+    r.onload = function(){
+      try{
+        var o = JSON.parse(r.result);
+        if(!o || o.app !== "nyspex" || !o.state) throw new Error("fel format");
+        if(!window.confirm("Ersätta det som finns i webbläsaren med filens innehåll"+(o.savedBy?" (sparad av "+o.savedBy+")":"")+"?")){ fileIn.value=""; return; }
+        var me = state.me; state = normalize(o.state); if(me) state.me = me; save(); init();
+      }catch(err){ window.alert("Filen kunde inte läsas in. Är det en fil sparad från den här sidan?"); }
+      fileIn.value = "";
+    };
+    r.readAsText(f);
+  });
+}
+
+var bound = false;
+function init(){
+  document.getElementById("spexName").value = state.name || "";
+  document.getElementById("premiere").value = state.premiere || "";
+  document.getElementById("me").value = state.me || "";
+  fillChSelects(); renderChapters(); refresh();
+  if(!bound){ bind(); bound = true; }
+  if(!canStore) document.getElementById("storeHint").textContent = "Den här webbläsaren sparar inte automatiskt. Använd Spara som fil för att behålla det ni fyllt i.";
+  var h = (location.hash||"").slice(1);
+  showTab(["oversikt","tidplan","steg","logg","fragor"].indexOf(h) >= 0 ? h : "oversikt");
+}
+
+load(); init();
+})();
+</script>
+</body>
+</html>
